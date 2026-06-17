@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en" style="color-scheme: light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Quotation SaaS — Flow Presentation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #f5f5f3;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 2rem 1rem;
+      }
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        border: 0.5px solid rgba(0, 0, 0, 0.1);
+        padding: 2rem 2rem 1.5rem;
+        max-width: 700px;
+        width: 100%;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+      }
+      .slide {
+        display: none;
+      }
+      .slide.active {
+        display: block;
+      }
+      .progress-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d1d0c8;
+        transition: background 0.2s;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+      }
+      .progress-dot.active {
+        background: #1a1a18;
+      }
+      .tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .mini-card {
+        background: #f5f5f3;
+        border-radius: 8px;
+        padding: 10px 12px;
+        border: 0.5px solid rgba(0, 0, 0, 0.1);
+      }
+      .mini-card .icon {
+        font-size: 18px;
+        margin-bottom: 6px;
+        color: #6b6b68;
+      }
+      .mini-card .label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #1a1a18;
+        line-height: 1.4;
+      }
+      .mini-card .desc {
+        font-size: 11px;
+        color: #6b6b68;
+        margin-top: 2px;
+        line-height: 1.4;
+      }
+      .flow-row {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 16px;
+      }
+      .flow-box {
+        flex: 1;
+        background: #f5f5f3;
+        border: 0.5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 10px 8px;
+        text-align: center;
+      }
+      .flow-box .title {
+        font-size: 12px;
+        font-weight: 500;
+        color: #1a1a18;
+        line-height: 1.3;
+      }
+      .flow-box .sub {
+        font-size: 11px;
+        color: #6b6b68;
+        margin-top: 2px;
+      }
+      .flow-arrow {
+        color: #6b6b68;
+        font-size: 16px;
+        padding: 0 4px;
+        flex-shrink: 0;
+      }
+      .step-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+      }
+      .step-row:last-child {
+        border-bottom: none;
+      }
+      .step-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+        background: #eaf4f7;
+        color: #0f6e56;
+      }
+      .benefit-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 0;
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+      }
+      .benefit-row:last-child {
+        border-bottom: none;
+      }
+      .nav-btn {
+        background: none;
+        border: 0.5px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 6px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #1a1a18;
+        transition: background 0.15s;
+        font-family: inherit;
+      }
+      .nav-btn:hover {
+        background: #f5f5f3;
+      }
+      .nav-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      .slide-counter {
+        font-size: 12px;
+        color: #6b6b68;
+      }
+      .eyebrow {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: #6b6b68;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .h1 {
+        font-size: 22px;
+        font-weight: 500;
+        color: #1a1a18;
+        line-height: 1.15;
+        margin: 0 0 8px;
+      }
+      .h2 {
+        font-size: 17px;
+        font-weight: 500;
+        color: #1a1a18;
+        margin: 0 0 12px;
+      }
+      .body-text {
+        font-size: 14px;
+        color: #6b6b68;
+        line-height: 1.6;
+        margin: 0 0 12px;
+      }
+      .divider-bar {
+        height: 3px;
+        width: 40px;
+        border-radius: 2px;
+        margin-bottom: 14px;
+      }
+      .accent-blue {
+        background: #e6f1fb;
+        color: #185fa5;
+      }
+      .accent-teal {
+        background: #eaf4f7;
+        color: #0f6e56;
+      }
+      .accent-amber {
+        background: #faeeda;
+        color: #854f0b;
+      }
+      .accent-purple {
+        background: #eeedfe;
+        color: #3c3489;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2 class="sr-only">
+        Project Quotation SaaS platform overview — 7-slide flow presentation
+      </h2>
+
+      <!-- Slide 1 -->
+      <div class="slide active" id="slide-1">
+        <div style="padding: 4px 0 8px">
+          <div class="eyebrow">SaaS Platform Overview</div>
+          <div
+            class="divider-bar"
+            style="background: linear-gradient(90deg, #1e88a8, #5dcaa5)"
+          ></div>
+          <div class="h1">
+            Project Quotation SaaS<br />for Proposal Engineers
+          </div>
+          <div class="body-text" style="max-width: 480px">
+            A cloud-based platform that helps proposal engineers create
+            technical and commercial project quotations for water and wastewater
+            treatment plants — faster, standardised, and error-free.
+          </div>
+          <div
+            style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px"
+          >
+            <span class="tag accent-blue">Water treatment</span>
+            <span class="tag accent-teal">Wastewater treatment</span>
+            <span
+              class="tag"
+              style="
+                background: #f5f5f3;
+                color: #6b6b68;
+                border: 0.5px solid rgba(0, 0, 0, 0.1);
+              "
+              >Multi-office SaaS</span
+            >
+          </div>
+          <div
+            class="info-box"
+            style="
+              margin-top: 20px;
+              padding: 14px 16px;
+              background: #f5f5f3;
+              border-radius: 12px;
+              border: 0.5px solid rgba(0, 0, 0, 0.1);
+              max-width: 480px;
+            "
+          >
+            <div
+              style="
+                font-size: 13px;
+                font-weight: 500;
+                color: #1a1a18;
+                margin-bottom: 6px;
+              "
+            >
+              What this is not
+            </div>
+            <div style="font-size: 12px; color: #6b6b68; line-height: 1.7">
+              Not a website · Not a landing page · Not a document template · Not
+              an Excel sheet<br /><strong
+                style="color: #1a1a18; font-weight: 500"
+                >It is a fully functional quotation software system.</strong
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide" id="slide-2">
+        <div class="eyebrow">Who it's for</div>
+        <div
+          class="divider-bar"
+          style="background: linear-gradient(90deg, #7f77dd, #afa9ec)"
+        ></div>
+        <div class="h2">The Proposal Engineer's workflow today</div>
+        <div class="body-text">
+          Creating a quotation manually is slow, error-prone, and inconsistent
+          across offices. This platform replaces that process.
+        </div>
+        <div class="grid2" style="margin-bottom: 14px">
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-user-circle"></i></div>
+            <div class="label">Proposal engineer</div>
+            <div class="desc">
+              Creates quotations, enters parameters, selects equipment, submits
+              for approval
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-user-check"></i></div>
+            <div class="label">Manager / Approver</div>
+            <div class="desc">
+              Reviews, approves, or returns quotations before they reach the
+              client
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-settings"></i></div>
+            <div class="label">Admin</div>
+            <div class="desc">
+              Manages users, equipment catalog, pricing master, templates,
+              margins, tax
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-building"></i></div>
+            <div class="label">Multi-office access</div>
+            <div class="desc">
+              Teams in Dubai, Abu Dhabi, India and other branches use the same
+              system
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide" id="slide-3">
+        <div class="eyebrow">How it works</div>
+        <div
+          class="divider-bar"
+          style="background: linear-gradient(90deg, #1d9e75, #5dcaa5)"
+        ></div>
+        <div class="h2">End-to-end user flow</div>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 8px;
+          "
+        >
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-login"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Log in
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                Secure cloud login from any office
+              </div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-file-plus"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Create new quotation
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                Unique quotation number, revision number, project record
+                generated automatically
+              </div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-forms"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Enter 50+ parameters
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                Client info, plant type, flow rate, water quality, treatment
+                scope, commercial terms
+              </div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-list-check"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Equipment &amp; BOQ generation
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                System suggests equipment list and bill of quantities based on
+                plant type and parameters
+              </div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-calculator"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Auto-costing
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                Equipment, fabrication, civil, electrical, installation, margin,
+                tax — all calculated
+              </div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-send"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Submit for approval
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                Manager reviews and approves or returns for correction
+              </div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-icon"><i class="ti ti-download"></i></div>
+            <div>
+              <div
+                class="step-text-main"
+                style="font-size: 13px; font-weight: 500; color: #1a1a18"
+              >
+                Download &amp; deliver
+              </div>
+              <div style="font-size: 12px; color: #6b6b68">
+                Generate PDF, Word, or Excel quotation — ready for the client
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide" id="slide-4">
+        <div class="eyebrow">Platform modules</div>
+        <div
+          class="divider-bar"
+          style="background: linear-gradient(90deg, #534ab7, #7f77dd)"
+        ></div>
+        <div class="h2">What the platform is built from</div>
+        <div class="grid3">
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-clipboard-list"></i></div>
+            <div class="label">Quotation creation</div>
+            <div class="desc">
+              Unique QN, revision tracking, project record per quotation
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-sliders"></i></div>
+            <div class="label">50+ parameter input</div>
+            <div class="desc">
+              Flow rate, TDS, pH, BOD, COD, turbidity, pressure, margin, taxes
+              and more
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-stack"></i></div>
+            <div class="label">Equipment &amp; BOQ</div>
+            <div class="desc">
+              RO membranes, filters, pumps, tanks, dosing systems, control
+              panels
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-calculator"></i></div>
+            <div class="label">Costing engine</div>
+            <div class="desc">
+              Auto-calculates equipment, fabrication, civil, electrical,
+              overhead, margin, GST/VAT
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-check"></i></div>
+            <div class="label">Approval workflow</div>
+            <div class="desc">
+              Engineer → Manager → Approve/Return → Final output
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-file-export"></i></div>
+            <div class="label">Document output</div>
+            <div class="desc">
+              PDF, Word, Excel — technical and commercial proposals
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-shield-lock"></i></div>
+            <div class="label">Admin panel</div>
+            <div class="desc">
+              Users, branches, pricing master, templates, currency, margins
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-database"></i></div>
+            <div class="label">Backend engine</div>
+            <div class="desc">
+              Project DB, parameter DB, costing formulas, revision history,
+              security
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="icon"><i class="ti ti-layout-dashboard"></i></div>
+            <div class="label">Frontend screens</div>
+            <div class="desc">
+              Dashboard, forms, equipment selector, preview, approval, download
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="slide" id="slide-5">
+        <div class="eyebrow">Approval workflow</div>
+        <div
+          class="divider-bar"
+          style="background: linear-gradient(90deg, #ba7517, #ef9f27)"
+        ></div>
+        <div class="h2">Internal approval before client delivery</div>
+        <div class="body-text">
+          Every quotation passes through a structured review process to ensure
+          accuracy and pricing control.
+        </div>
+        <div class="flow-row">
+          <div class="flow-box flow-box-blue" style="border-color: #185fa5">
+            <div style="font-size: 18px; margin-bottom: 4px">
+              <i class="ti ti-user"></i>
+            </div>
+            <div class="title">Proposal engineer</div>
+            <div class="sub">Creates quotation</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-box">
+            <div style="font-size: 18px; margin-bottom: 4px">
+              <i class="ti ti-eye"></i>
+            </div>
+            <div class="title">Manager review</div>
+            <div class="sub">Checks values &amp; scope</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-box">
+            <div style="font-size: 18px; margin-bottom: 4px">
+              <i class="ti ti-checks"></i>
+            </div>
+            <div class="title">Approve or return</div>
+            <div class="sub">Corrections looped back</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-box flow-box-green" style="border-color: #3b6d11">
+            <div style="font-size: 18px; margin-bottom: 4px">
+              <i class="ti ti-send"></i>
+            </div>
+            <div class="title">Final quotation</div>
+            <div class="sub">Sent to client</div>
+          </div>
+        </div>
+        <div
+          class="info-box"
+          style="
+            background: #f5f5f3;
+            border-radius: 8px;
+            padding: 12px 14px;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+          "
+        >
+          <div
+            style="
+              font-size: 12px;
+              font-weight: 500;
+              color: #1a1a18;
+              margin-bottom: 8px;
+            "
+          >
+            Admin controls approval limits
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <span
+              class="tag"
+              style="
+                background: #f5f5f3;
+                color: #6b6b68;
+                border: 0.5px solid rgba(0, 0, 0, 0.1);
+              "
+              >Approval limits by value</span
+            >
+            <span
+              class="tag"
+              style="
+                background: #f5f5f3;
+                color: #6b6b68;
+                border: 0.5px solid rgba(0, 0, 0, 0.1);
+              "
+              >User permissions</span
+            >
+            <span
+              class="tag"
+              style="
+                background: #f5f5f3;
+                color: #6b6b68;
+                border: 0.5px solid rgba(0, 0, 0, 0.1);
+              "
+              >Revision history</span
+            >
+            <span
+              class="tag"
+              style="
+                background: #f5f5f3;
+                color: #6b6b68;
+                border: 0.5px solid rgba(0, 0, 0, 0.1);
+              "
+              >Branch-level access</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6 -->
+      <div class="slide" id="slide-6">
+        <div class="eyebrow">Quotation output</div>
+        <div
+          class="divider-bar"
+          style="background: linear-gradient(90deg, #d85a30, #f0997b)"
+        ></div>
+        <div class="h2">What gets generated</div>
+        <div class="body-text">
+          After inputs are complete and approval is granted, the system
+          generates a full professional quotation package.
+        </div>
+        <div class="grid2" style="margin-bottom: 14px">
+          <div
+            class="mini-card"
+            style="display: flex; gap: 10px; align-items: flex-start"
+          >
+            <div style="font-size: 22px; color: #185fa5">
+              <i class="ti ti-file-type-pdf"></i>
+            </div>
+            <div>
+              <div class="label">PDF quotation</div>
+              <div class="desc">
+                Branded, printable, client-ready proposal document
+              </div>
+            </div>
+          </div>
+          <div
+            class="mini-card"
+            style="display: flex; gap: 10px; align-items: flex-start"
+          >
+            <div style="font-size: 22px; color: #6b6b68">
+              <i class="ti ti-file-type-doc"></i>
+            </div>
+            <div>
+              <div class="label">Word document</div>
+              <div class="desc">Editable technical or commercial proposal</div>
+            </div>
+          </div>
+          <div
+            class="mini-card"
+            style="display: flex; gap: 10px; align-items: flex-start"
+          >
+            <div style="font-size: 22px; color: #3b6d11">
+              <i class="ti ti-table"></i>
+            </div>
+            <div>
+              <div class="label">Excel costing sheet</div>
+              <div class="desc">
+                Full BOQ and cost breakdown for internal reference
+              </div>
+            </div>
+          </div>
+          <div
+            class="mini-card"
+            style="display: flex; gap: 10px; align-items: flex-start"
+          >
+            <div style="font-size: 22px; color: #854f0b">
+              <i class="ti ti-file-description"></i>
+            </div>
+            <div>
+              <div class="label">Technical proposal</div>
+              <div class="desc">
+                Process description, equipment specs, scope of supply
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="info-box"
+          style="
+            background: #f5f5f3;
+            border-radius: 8px;
+            padding: 12px 14px;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+          "
+        >
+          <div style="font-size: 12px; color: #6b6b68; line-height: 1.7">
+            Each output carries the unique
+            <strong style="color: #1a1a18; font-weight: 500"
+              >quotation number</strong
+            >,
+            <strong style="color: #1a1a18; font-weight: 500"
+              >revision number</strong
+            >, and full project record — traceable at every stage.
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7 -->
+      <div class="slide" id="slide-7">
+        <div class="eyebrow">Final benefit</div>
+        <div
+          class="divider-bar"
+          style="background: linear-gradient(90deg, #1e88a8, #5dcaa5)"
+        ></div>
+        <div class="h2">Why teams will use this</div>
+        <div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-clock"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Save time — generate quotations in a fraction of the manual effort
+            </div>
+          </div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-circle-check"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Reduce manual errors with formula-driven costing and
+              auto-generation
+            </div>
+          </div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-layout-2"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Standardise quotation format across all offices and engineers
+            </div>
+          </div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-lock"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Maintain pricing control with a centralised pricing master and
+              margin rules
+            </div>
+          </div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-history"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Track every revision with a full revision history per project
+            </div>
+          </div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-chart-arrows"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Improve approval process with a structured review workflow
+            </div>
+          </div>
+          <div class="benefit-row">
+            <i
+              class="ti ti-file-star"
+              style="font-size: 16px; color: #6b6b68; flex-shrink: 0"
+            ></i>
+            <div style="font-size: 13px; color: #1a1a18" class="step-text-main">
+              Generate professional proposals faster — impress clients, win more
+              projects
+            </div>
+          </div>
+        </div>
+        <div
+          class="info-box"
+          style="
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: #f5f5f3;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+          "
+        >
+          <div style="font-size: 13px; color: #6b6b68">
+            Development scope includes frontend screens, backend logic,
+            parameter module, equipment/BOQ module, costing engine, approval
+            workflow, document generation, admin panel, access control, testing,
+            deployment, and training.
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20px;
+          padding-top: 14px;
+          border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+        "
+      >
+        <button
+          class="nav-btn"
+          id="prev-btn"
+          onclick="changeSlide(-1)"
+          disabled
+        >
+          ← Prev
+        </button>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+          "
+        >
+          <div style="display: flex; gap: 6px" id="dots"></div>
+          <span class="slide-counter" id="counter">1 / 7</span>
+        </div>
+        <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">
+          Next →
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const total = 7;
+      let cur = 1;
+      const dotsEl = document.getElementById("dots");
+      for (let i = 1; i <= total; i++) {
+        const b = document.createElement("button");
+        b.className = "progress-dot" + (i === 1 ? " active" : "");
+        b.setAttribute("aria-label", "Slide " + i);
+        b.onclick = () => goTo(i);
+        dotsEl.appendChild(b);
+      }
+      function goTo(n) {
+        document.getElementById("slide-" + cur).classList.remove("active");
+        dotsEl.children[cur - 1].classList.remove("active");
+        cur = n;
+        document.getElementById("slide-" + cur).classList.add("active");
+        dotsEl.children[cur - 1].classList.add("active");
+        document.getElementById("counter").textContent = cur + " / " + total;
+        document.getElementById("prev-btn").disabled = cur === 1;
+        document.getElementById("next-btn").disabled = cur === total;
+      }
+      function changeSlide(dir) {
+        const n = cur + dir;
+        if (n >= 1 && n <= total) goTo(n);
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") changeSlide(1);
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") changeSlide(-1);
+      });
+    </script>
+  </body>
+</html>
